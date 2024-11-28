@@ -14,7 +14,7 @@ def clean_data_csv(df,cols_to_drop):
         df_cleaned[col] = label_encoder.fit_transform(df_cleaned[col])
     categorical_columns = df_cleaned.select_dtypes(include=['object', 'category']).columns.tolist()
     encoded_df = pd.get_dummies(df_cleaned[categorical_columns], drop_first=True)
-    data = df_cleaned.drop(columns=categorical_columns).join(encoded_df)
+    df_cleaned = df_cleaned.drop(columns=categorical_columns).join(encoded_df)
     bool_columns = df_cleaned.select_dtypes(include='bool').columns
     df_cleaned[bool_columns] = df_cleaned[bool_columns].astype(int)
     return df_cleaned
