@@ -7,7 +7,6 @@ import mlflow
 import mlflow.pyfunc
 import os
 from backend.src.clean_data_csv import clean_data_csv
-#from src.clean_data_json import clean_data_json
 import uvicorn
 
 # Configuration de l'environnement MLflow
@@ -50,32 +49,17 @@ model,selected_feature = get_best_model()
 def read_root():
     return {"message": "Bienvenue dans l'API de prédiction de churn"}
 
-
 # Endpoint pour les fichiers CSV : prédiction pour plusieurs transactions
 @app.post("/predict/csv")
 def predict_csv(file: UploadFile = File(...)):
-
-
     data = pd.read_csv(file.file)
     cols_to_drop = ['Customer ID', 'Gender', 'Age', 'Zip Code', 'Latitude', 'Longitude', 'City', 'Churn Category',
                     'Churn Score', 'Churn Reason', 'Customer Status', 'Quarter', 'State', 'Country']
     clean_df = clean_data_csv(data,cols_to_drop)
-
     selected_features = [feature.strip() for feature in selected_feature]
     preprocessed_data = clean_df[selected_features]
     predictions = model.predict(preprocessed_data)
     return {"predictions": predictions.tolist()}
-
-
-
-# Endpoint pour les données JSON : prédiction pour une seule transaction
-#@app.post("/predict")
-#def predict_transaction(data: TransactionModel):
- #   received_data = data.dict()
-  #  df = pd.DataFrame(received_data, index=[0])
-   # preprocessed_data = clean_data_json(df)
-    #predictions = model.predict(preprocessed_data)
-    #return {"predictions": predictions.tolist()}
 
 # Point d'entrée pour lancer l'API
 if __name__ == "__main__":
