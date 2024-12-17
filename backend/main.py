@@ -10,12 +10,11 @@ from backend.src.clean_data_csv import clean_data_csv
 import uvicorn
 
 # Configuration de l'environnement MLflow
-os.environ['MLFLOW_TRACKING_URI'] = "https://dagshub.com/Amir-Jmal/MLOps-Churn-Prediction.mlflow"
-os.environ['MLFLOW_TRACKING_USERNAME']= "Amir-Jmal"
-os.environ["MLFLOW_TRACKING_PASSWORD"] = "85842cb6984ed595d31c00d48f8d7aef1cafa278"
+os.environ['MLFLOW_TRACKING_URI'] = " "
+os.environ['MLFLOW_TRACKING_USERNAME']= " "
+os.environ["MLFLOW_TRACKING_PASSWORD"] = " "
 
 # Initialisation de l'application FastAPI
-
 app = FastAPI()
 
 # Ajouter CORS pour accepter les requêtes depuis n'importe quelle origine
